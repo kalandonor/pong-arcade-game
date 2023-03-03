@@ -4,6 +4,7 @@ import random
 EDGE_OF_PLAY_FIELD_X = 320
 EDGE_OF_PLAY_FIELD_Y = 280
 STARTING_ANGLES = list(range(120, 151)) + list(range(210, 241)) + list(range(30, 61)) + list(range(300, 331))
+STARTING_SPEED = 0.05
 
 
 def choose_random_direction():
@@ -19,6 +20,10 @@ class Ball(Turtle):
         self.color("white")
         self.setposition((0, 0))
         self.setheading(choose_random_direction())
+        self.move_speed = STARTING_SPEED
+
+    def increase_speed(self):
+        self.move_speed *= 0.9
 
     def is_collision_happened(self):
         return self.ycor() >= EDGE_OF_PLAY_FIELD_Y or self.ycor() <= -1 * EDGE_OF_PLAY_FIELD_Y
@@ -55,3 +60,7 @@ class Ball(Turtle):
     def reset_ball(self):
         self.goto(0, 0)
         self.setheading(choose_random_direction())
+        self.move_speed = STARTING_SPEED
+
+    def get_move_speed(self):
+        return self.move_speed

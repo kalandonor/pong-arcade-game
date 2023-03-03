@@ -1,4 +1,3 @@
-import random
 import time
 
 from paddle import Paddle
@@ -39,13 +38,11 @@ class PongGame:
 
     def play(self):
         game_is_on = True
-        speed = 0.05
         while game_is_on:
-            sleep(speed)
+            sleep(self.ball.get_move_speed())
             if self.is_collision_happened_with_paddle():
                 self.ball.setheading(self.ball.get_new_heading_after_paddle_bounce())
-                speed *= 0.9
-                print(f"{speed}")
+                self.ball.increase_speed()
             self.ball.move_the_ball()
             self.screen.update()
             game_is_on = self.ball.game_is_on()
@@ -57,7 +54,6 @@ class PongGame:
                 if self.scoreboard.get_score("left") < MAX_SCORE and \
                         self.scoreboard.get_score("right") < MAX_SCORE:
                     self.ball.reset_ball()
-                    speed = 0.05
                     game_is_on = True
                     time.sleep(1)
         self.screen.exitonclick()
