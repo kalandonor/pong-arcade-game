@@ -44,7 +44,7 @@ class PongGame:
             sleep(speed)
             if self.is_collision_happened_with_paddle():
                 self.ball.setheading(self.ball.get_new_heading_after_paddle_bounce())
-                speed -= 0.002
+                speed *= 0.9
                 print(f"{speed}")
             self.ball.move_the_ball()
             self.screen.update()
